@@ -9,9 +9,9 @@ import java.util.function.Predicate;
 //quando um evento ocorreu
 public class Tabuleiro implements CampoObservador {
 
-    private int linhas;
-    private int colunas;
-    private int minas;
+    private final int linhas;
+    private final int colunas;
+    private final int minas;
 
     private final List<Campo> campos = new ArrayList<>();
     //preciso que o tabuleiro notifique quando houve um vencedor
@@ -25,6 +25,10 @@ public class Tabuleiro implements CampoObservador {
         gerarCampos();
         associarOsVizinhos();
         sortearMinas();
+    }
+
+    public void paraCada(Consumer<Campo> funcao){
+        campos.forEach(funcao);
     }
 
     public void registrarObservador(Consumer<ResultadoEvento> observador){
@@ -87,6 +91,14 @@ public class Tabuleiro implements CampoObservador {
     public void reiniciar(){
         campos.stream().forEach( c -> c.reiniciar());
         sortearMinas();
+    }
+
+    public int getLinhas() {
+        return linhas;
+    }
+
+    public int getColunas() {
+        return colunas;
     }
 
     public void eventoOcorreu(Campo campo, CampoEvento evento){
