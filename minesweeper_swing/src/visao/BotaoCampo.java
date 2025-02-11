@@ -48,6 +48,7 @@ public class BotaoCampo extends JButton implements CampoObservador, MouseListene
                 aplicarEstiloPadrao();
         }
 
+        //garantindo que não haverá nenhum problema de renderização ao reiniciar
         SwingUtilities.invokeLater(() -> {
             repaint();
             validate();
