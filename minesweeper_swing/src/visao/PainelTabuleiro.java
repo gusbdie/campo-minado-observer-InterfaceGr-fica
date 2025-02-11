@@ -2,7 +2,9 @@ package visao;
 
 import java.awt.GridLayout;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import modelo.Tabuleiro;
 
@@ -17,7 +19,18 @@ public class PainelTabuleiro extends JPanel{
         tabuleiro.paraCada(c -> add(new BotaoCampo(c)));
 
         tabuleiro.registrarObservador(e -> {
-            //TODO mostrar resultado pro usuário!
+
+            //serve para que a interface primeiro marque um X na bomba que
+            //cliquei e somente dps mostre o resultado
+            SwingUtilities.invokeLater(() -> {
+                if(e.isGanhou()) {
+                    JOptionPane.showMessageDialog(this, "Ganhou");
+                }else {
+                    JOptionPane.showMessageDialog(this, "Perdeu");
+                }
+
+                tabuleiro.reiniciar();//preciso notificar a interface ainda
+            });
         });
     }
 }
